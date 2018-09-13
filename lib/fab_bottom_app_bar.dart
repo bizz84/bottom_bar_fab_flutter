@@ -63,8 +63,6 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     return BottomAppBar(
       shape: widget.notchedShape,
       child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: items,
       ),
       color: widget.backgroundColor,
@@ -83,7 +81,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
         children: <Widget>[
           SizedBox(height: widget.iconSize),
           Text(
-            widget.centerItemText,
+            widget.centerItemText ?? '',
             style: TextStyle(color: widget.color),
           ),
         ],
@@ -103,7 +101,6 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
       height: widget.height,
       child: Material(
         type: MaterialType.transparency,
-        //shape: CircleBorder(),
         child: InkWell(
           onTap: () => onPressed(index),
           child: Column(
