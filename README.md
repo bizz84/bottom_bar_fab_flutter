@@ -1,8 +1,8 @@
-# bottom_bar_fab_flutter
+## BottomAppBar Navigation with FAB
 
-A new Flutter project.
+TBC
 
-## Getting Started
+### [License: MIT](LICENSE.md)
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+
+
