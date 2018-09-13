@@ -37,12 +37,12 @@ class FABBottomAppBar extends StatefulWidget {
 }
 
 class FABBottomAppBarState extends State<FABBottomAppBar> {
-  int _tabIndex = 0;
+  int _selectedIndex = 0;
 
   _updateIndex(int index) {
     widget.onTabSelected(index);
     setState(() {
-      _tabIndex = index;
+      _selectedIndex = index;
     });
   }
 
@@ -63,6 +63,8 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     return BottomAppBar(
       shape: widget.notchedShape,
       child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: items,
       ),
       color: widget.backgroundColor,
@@ -95,7 +97,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     double width,
     ValueChanged<int> onPressed,
   }) {
-    Color color = _tabIndex == index ? widget.selectedColor : widget.color;
+    Color color = _selectedIndex == index ? widget.selectedColor : widget.color;
     return SizedBox(
       width: width,
       height: widget.height,
