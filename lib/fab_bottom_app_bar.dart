@@ -48,17 +48,14 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    double width = size.width / (widget.items.length + 1);
     List<Widget> items = List.generate(widget.items.length, (int index) {
       return _buildTabItem(
         item: widget.items[index],
         index: index,
-        width: width,
         onPressed: _updateIndex,
       );
     });
-    items.insert(items.length >> 1, _buildMiddleTabItem(width));
+    items.insert(items.length >> 1, _buildMiddleTabItem());
 
     return BottomAppBar(
       shape: widget.notchedShape,
@@ -71,22 +68,21 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     );
   }
 
-  Widget _buildMiddleTabItem(
-      double width,
-      ) {
-    return SizedBox(
-      width: width,
-      height: widget.height,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(height: widget.iconSize),
-          Text(
-            widget.centerItemText ?? '',
-            style: TextStyle(color: widget.color),
-          ),
-        ],
+  Widget _buildMiddleTabItem() {
+    return Expanded(
+      child: SizedBox(
+        height: widget.height,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: widget.iconSize),
+            Text(
+              widget.centerItemText ?? '',
+              style: TextStyle(color: widget.color),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -94,27 +90,27 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
   Widget _buildTabItem({
     FABBottomAppBarItem item,
     int index,
-    double width,
     ValueChanged<int> onPressed,
   }) {
     Color color = _selectedIndex == index ? widget.selectedColor : widget.color;
-    return SizedBox(
-      width: width,
-      height: widget.height,
-      child: Material(
-        type: MaterialType.transparency,
-        child: InkWell(
-          onTap: () => onPressed(index),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(item.iconData, color: color, size: widget.iconSize),
-              Text(
-                item.text,
-                style: TextStyle(color: color),
-              )
-            ],
+    return Expanded(
+      child: SizedBox(
+        height: widget.height,
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            onTap: () => onPressed(index),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(item.iconData, color: color, size: widget.iconSize),
+                Text(
+                  item.text,
+                  style: TextStyle(color: color),
+                )
+              ],
+            ),
           ),
         ),
       ),
