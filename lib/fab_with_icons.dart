@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 // https://stackoverflow.com/questions/46480221/flutter-floating-action-button-with-speed-dail
 class FabWithIcons extends StatefulWidget {
@@ -8,10 +6,10 @@ class FabWithIcons extends StatefulWidget {
   final List<IconData> icons;
   ValueChanged<int> onIconTapped;
   @override
-  State createState() => new FabWithIcons2State();
+  State createState() => FabWithIconsState();
 }
 
-class FabWithIcons2State extends State<FabWithIcons> with TickerProviderStateMixin {
+class FabWithIconsState extends State<FabWithIcons> with TickerProviderStateMixin {
   AnimationController _controller;
 
   @override
@@ -23,9 +21,17 @@ class FabWithIcons2State extends State<FabWithIcons> with TickerProviderStateMix
     );
   }
 
-  void _onTapped(int index) {
-    _controller.reverse();
-    widget.onIconTapped(index);
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(widget.icons.length, (int index) {
+        return _buildChild(index);
+      }).toList()..add(
+        _buildFab(),
+      ),
+    );
   }
 
   Widget _buildChild(int index) {
@@ -54,19 +60,6 @@ class FabWithIcons2State extends State<FabWithIcons> with TickerProviderStateMix
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: List.generate(widget.icons.length, (int index) {
-        return _buildChild(index);
-      }).toList()..add(
-        _buildFab(),
-      ),
-    );
-  }
-
   Widget _buildFab() {
     return FloatingActionButton(
       onPressed: () {
@@ -80,5 +73,10 @@ class FabWithIcons2State extends State<FabWithIcons> with TickerProviderStateMix
       child: Icon(Icons.add),
       elevation: 2.0,
     );
+  }
+
+  void _onTapped(int index) {
+    _controller.reverse();
+    widget.onIconTapped(index);
   }
 }
